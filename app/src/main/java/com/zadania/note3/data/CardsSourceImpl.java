@@ -1,6 +1,9 @@
-package com.zadania.note3;
+package com.zadania.note3.data;
+
 import android.content.res.Resources;
 import android.content.res.TypedArray;
+
+import com.zadania.note3.R;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.zadania.note3;
+package com.zadania.note3.ui;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +9,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.zadania.note3.R;
+import com.zadania.note3.data.CardData;
+import com.zadania.note3.data.CardsSource;
 
 public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
     private final static String TAG = "NoteAdapter";
@@ -48,15 +52,17 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
     public int getItemCount() {
         return dataSource.size();
     }
+
     // Сеттер слушателя нажатий
-    public void SetOnItemClickListener(OnItemClickListener itemClickListener){
+    public void SetOnItemClickListener(OnItemClickListener itemClickListener) {
         this.itemClickListener = itemClickListener;
     }
 
     // Интерфейс для обработки нажатий как в ListView
     public interface OnItemClickListener {
-        void onItemClick(View view , int position);
+        void onItemClick(View view, int position);
     }
+
     // Этот класс хранит связь между данными и элементами View
     // Сложные данные могут потребовать несколько View на один пункт списка
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -88,7 +94,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
             });
         }
 
-        public void setData(CardData cardData){
+        public void setData(CardData cardData) {
             title.setText(cardData.getTitle());
             description.setText(cardData.getDescription());
             description2.setText(cardData.getDescription2());

@@ -1,4 +1,4 @@
-package com.zadania.note3;
+package com.zadania.note3.ui;
 
 import android.os.Bundle;
 
@@ -7,6 +7,8 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+
+import com.zadania.note3.R;
 
 public class MainActivity extends AppCompatActivity {
 

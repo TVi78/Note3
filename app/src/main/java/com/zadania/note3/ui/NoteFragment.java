@@ -1,17 +1,21 @@
-package com.zadania.note3;
+package com.zadania.note3.ui;
+
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Toast;
+import com.zadania.note3.R;
+import com.zadania.note3.data.CardsSource;
+import com.zadania.note3.data.CardsSourceImpl;
 
-public class NoteFragment  extends Fragment {
+public class NoteFragment extends Fragment {
 
     public static NoteFragment newInstance() {
         return new NoteFragment();
@@ -28,7 +32,7 @@ public class NoteFragment  extends Fragment {
         return view;
     }
 
-    private void initRecyclerView(RecyclerView recyclerView, CardsSource data){
+    private void initRecyclerView(RecyclerView recyclerView, CardsSource data) {
 
         // Эта установка служит для повышения производительности системы
         recyclerView.setHasFixedSize(true);
@@ -42,7 +46,7 @@ public class NoteFragment  extends Fragment {
         recyclerView.setAdapter(adapter);
 
         // Добавим разделитель карточек
-        DividerItemDecoration itemDecoration = new DividerItemDecoration(getContext(),  LinearLayoutManager.VERTICAL);
+        DividerItemDecoration itemDecoration = new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL);
         itemDecoration.setDrawable(getResources().getDrawable(R.drawable.separator, null));
         recyclerView.addItemDecoration(itemDecoration);
 

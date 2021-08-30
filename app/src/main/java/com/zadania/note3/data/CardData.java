@@ -1,4 +1,4 @@
-package com.zadania.note3;
+package com.zadania.note3.data;
 
 public class CardData {
     private String title;       // заголовок
