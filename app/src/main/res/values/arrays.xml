@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="titles">
+        <item>Заметка один</item>
+        <item>Заметка два</item>
+        <item>Заметка три</item>
+    </string-array>
+
+    <string-array name="descriptions">
+        <item>Кот</item>
+        <item>Собака</item>
+        <item>Рыба</item>
+    </string-array>
+
+    <array name="pictures">
+        <item>@drawable/note1</item>
+        <item>@drawable/note2</item>
+        <item>@drawable/note3</item>
+    </array>
+
+    <string-array name="note_description">
+        <item>Кот на дереве</item>
+        <item>Собака под деревом</item>
+        <item>Рыба в пруду</item>
+    </string-array>
+
+    <string-array name="note_data">
+        <item>23.08.2021</item>
+        <item>24.08.2021</item>
+        <item>25.08.2021</item>
+    </string-array>
+</resources>
