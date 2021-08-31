@@ -6,4 +6,6 @@
     <string name="name1">Первое имя</string>
     <string name="name2">Второе имя</string>
     <string name="name3">Третье имя</string>
+    <string name="add">Добавить</string>
+    <string name="clear">Очистить</string>
 </resources>

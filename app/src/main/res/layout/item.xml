@@ -3,9 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardCornerRadius="5dp"
     android:layout_margin="20dp"
     android:padding="20dp"
+    app:cardCornerRadius="5dp"
     app:cardElevation="5dp">
 
     <LinearLayout
@@ -49,17 +49,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textColor="@color/Pink"
             android:text="Description"
+            android:textColor="@color/Pink"
             android:textSize="@dimen/textDescription" />
+
         <TextView
             android:id="@+id/description2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textColor="@color/black"
             android:text="Description2"
+            android:textColor="@color/black"
             android:textSize="@dimen/textDescription" />
+
         <TextView
             android:id="@+id/data"
             android:layout_width="wrap_content"
