@@ -8,4 +8,6 @@
     <string name="name3">Третье имя</string>
     <string name="add">Добавить</string>
     <string name="clear">Очистить</string>
+    <string name="update">Обновить</string>
+    <string name="delete">Удалить</string>
 </resources>

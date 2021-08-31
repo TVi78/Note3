@@ -1,6 +1,7 @@
 package com.zadania.note3.ui;
 
 import android.os.Bundle;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -10,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -50,8 +52,8 @@ public class NoteFragment extends Fragment {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_add:
-                data.addCardData(new CardData("Заметка " + (data.size()+1),
-                        "Название ","Описание ","Дата", R.drawable.note4,
+                data.addCardData(new CardData("Заметка " + (data.size() + 1),
+                        "Название ", "Описание ", "Дата", R.drawable.note4,
                         false));
                 adapter.notifyItemInserted(data.size() - 1);
                 recyclerView.scrollToPosition(data.size() - 1);
@@ -81,7 +83,7 @@ public class NoteFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
 
         // Установим адаптер
-        adapter = new NoteAdapter(data);
+        adapter = new NoteAdapter(data, this);
         recyclerView.setAdapter(adapter);
 
         // Добавим разделитель карточек
@@ -96,5 +98,32 @@ public class NoteFragment extends Fragment {
                 Toast.makeText(getContext(), String.format("Позиция - %d", position), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    @Override
+    public boolean onContextItemSelected(@NonNull MenuItem item) {
+        int position = adapter.getMenuPosition();
+        switch (item.getItemId()) {
+            case R.id.action_update:
+                data.updateCardData(position,
+                        new CardData("Заметка " + (position + 1),
+                                data.getCardData(position).getDescription(), data.getCardData(position).getDescription2(),
+                                data.getCardData(position).getData(), data.getCardData(position).getPicture(),
+                                false));
+                adapter.notifyItemChanged(position);
+                return true;
+            case R.id.action_delete:
+                data.deleteCardData(position);
+                adapter.notifyItemRemoved(position);
+                return true;
+        }
+        return super.onContextItemSelected(item);
+    }
+
+    @Override
+    public void onCreateContextMenu(@NonNull ContextMenu menu, @NonNull View v, @Nullable ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        MenuInflater inflater = requireActivity().getMenuInflater();
+        inflater.inflate(R.menu.card_menu2, menu);
     }
 }

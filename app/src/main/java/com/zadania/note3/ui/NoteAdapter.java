@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatImageView;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.zadania.note3.R;
@@ -17,12 +18,14 @@ import com.zadania.note3.data.CardsSource;
 public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
     private final static String TAG = "NoteAdapter";
     private CardsSource dataSource;
+    private final Fragment fragment;
     private OnItemClickListener itemClickListener;  // Слушатель будет устанавливаться извне
-
+    private int menuPosition;
     // Передаём в конструктор источник данных
     // В нашем случае это массив, но может быть и запрос к БД
-    public NoteAdapter(CardsSource dataSource) {
+    public NoteAdapter(CardsSource dataSource, Fragment fragment) {
         this.dataSource = dataSource;
+        this.fragment = fragment;
     }
 
     // Создать новый элемент пользовательского интерфейса
@@ -58,6 +61,9 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
         this.itemClickListener = itemClickListener;
     }
 
+    public int getMenuPosition() {
+        return menuPosition;
+    }
     // Интерфейс для обработки нажатий как в ListView
     public interface OnItemClickListener {
         void onItemClick(View view, int position);
@@ -74,7 +80,9 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
         private AppCompatImageView image;
         private CheckBox like;
 
-        public ViewHolder(@NonNull View itemView) {
+
+
+        public ViewHolder(@NonNull final View itemView) {
             super(itemView);
             title = itemView.findViewById(R.id.title);
             description = itemView.findViewById(R.id.description);
@@ -83,6 +91,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
             like = itemView.findViewById(R.id.like);
             data = itemView.findViewById(R.id.data);
 
+            registerContextMenu(itemView);
             // Обработчик нажатий на картинке
             image.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -92,6 +101,28 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
                     }
                 }
             });
+            // Обработчик нажатий на картинке
+            image.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    menuPosition = getLayoutPosition();
+                    itemView.showContextMenu(10, 10);
+                    return true;
+                }
+            });
+        }
+
+        private void registerContextMenu(@NonNull View itemView) {
+            if (fragment != null){
+                itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View v) {
+                        menuPosition = getLayoutPosition();
+                        return false;
+                    }
+                });
+                fragment.registerForContextMenu(itemView);
+            }
         }
 
         public void setData(CardData cardData) {
