@@ -18,9 +18,16 @@ import com.zadania.note3.data.CardsSource;
 public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
     private final static String TAG = "NoteAdapter";
     private CardsSource dataSource;
-    private final Fragment fragment;
+    private Fragment fragment;
     private OnItemClickListener itemClickListener;  // Слушатель будет устанавливаться извне
+    private int menuContextClickPosition;
+
+    public int getMenuContextClickPosition() {
+        return menuContextClickPosition;
+    }
+
     private int menuPosition;
+
     // Передаём в конструктор источник данных
     // В нашем случае это массив, но может быть и запрос к БД
     public NoteAdapter(CardsSource dataSource, Fragment fragment) {
@@ -64,6 +71,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
     public int getMenuPosition() {
         return menuPosition;
     }
+
     // Интерфейс для обработки нажатий как в ListView
     public interface OnItemClickListener {
         void onItemClick(View view, int position);
@@ -79,7 +87,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
         private TextView data;
         private AppCompatImageView image;
         private CheckBox like;
-
+        private TextView date;
 
 
         public ViewHolder(@NonNull final View itemView) {
@@ -90,6 +98,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
             image = itemView.findViewById(R.id.imageView);
             like = itemView.findViewById(R.id.like);
             data = itemView.findViewById(R.id.data);
+            date = itemView.findViewById(R.id.date);
 
             registerContextMenu(itemView);
             // Обработчик нажатий на картинке
@@ -105,15 +114,15 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
             image.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
-                    menuPosition = getLayoutPosition();
-                    itemView.showContextMenu(10, 10);
+                    menuContextClickPosition = getAdapterPosition();
+                    image.showContextMenu(0, 0); // FIXME
                     return true;
                 }
             });
         }
 
         private void registerContextMenu(@NonNull View itemView) {
-            if (fragment != null){
+            if (fragment != null) {
                 itemView.setOnLongClickListener(new View.OnLongClickListener() {
                     @Override
                     public boolean onLongClick(View v) {
@@ -132,6 +141,8 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
             like.setChecked(cardData.isLike());
             image.setImageResource(cardData.getPicture());
             data.setText(cardData.getData());
+            date.setText(cardData.getDate().toString());
+            //      date.setText(new SimpleDateFormat("dd-MM-yy").format(cardData.getDate()));
         }
     }
 }

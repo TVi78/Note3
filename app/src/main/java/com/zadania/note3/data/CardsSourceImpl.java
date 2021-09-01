@@ -6,6 +6,7 @@ import android.content.res.TypedArray;
 import com.zadania.note3.R;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class CardsSourceImpl implements CardsSource {
@@ -28,7 +29,8 @@ public class CardsSourceImpl implements CardsSource {
         int[] pictures = getImageArray();
         // заполнение источника данных
         for (int i = 0; i < descriptions.length; i++) {
-            dataSource.add(new CardData(titles[i], descriptions[i], descriptions2[i], data[i], pictures[i], false));
+            dataSource.add(new CardData(titles[i], descriptions[i], descriptions2[i], data[i],
+                    pictures[i],false, Calendar.getInstance().getTime()));
         }
         return this;
     }
