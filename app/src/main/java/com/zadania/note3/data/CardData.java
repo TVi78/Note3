@@ -6,22 +6,55 @@ import android.os.Parcelable;
 import java.util.Date;
 
 public class CardData implements Parcelable {
+    private String id;
     private String title;       // заголовок
     private String description; // описание
-
     private String description2; // описание
-    private String data; // описание
+    private String ddata; // описание
     private int picture;        // изображение
     private boolean like;       // флажок
     private Date date;          // дата
 
-    public CardData(String title, String description, String description2, String data, int picture, boolean like, Date date) {
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setDescription2(String description2) {
+        this.description2 = description2;
+    }
+
+    public void setDdata(String data) {
+        this.ddata = data;
+    }
+
+    public void setPicture(int picture) {
+        this.picture = picture;
+    }
+
+    public void setLike(boolean like) {
+        this.like = like;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public CardData(String title, String description, String description2,
+                    String ddata, int picture, boolean like, Date date) {
         this.title = title;
         this.description = description;
         this.picture = picture;
         this.like = like;
         this.description2 = description2;
-        this.data = data;
+        this.ddata = ddata;
         this.date = date;
     }
 
@@ -29,7 +62,7 @@ public class CardData implements Parcelable {
         title = in.readString();
         description = in.readString();
         description2 = in.readString();
-        data = in.readString();
+        ddata = in.readString();
         picture = in.readInt();
         like = in.readByte() != 0;
         date = new Date(in.readLong());
@@ -47,6 +80,10 @@ public class CardData implements Parcelable {
         }
     };
 
+    public String getId() {
+        return id;
+    }
+
     public String getTitle() {
         return title;
     }
@@ -55,20 +92,20 @@ public class CardData implements Parcelable {
         return description;
     }
 
+    public String getDescription2() {
+        return description2;
+    }
+
+    public String getDdata() {
+        return ddata;
+    }
+
     public int getPicture() {
         return picture;
     }
 
     public boolean isLike() {
         return like;
-    }
-
-    public String getDescription2() {
-        return description2;
-    }
-
-    public String getData() {
-        return data;
     }
 
     public Date getDate() {
@@ -85,7 +122,7 @@ public class CardData implements Parcelable {
         dest.writeString(title);
         dest.writeString(description);
         dest.writeString(description2);
-        dest.writeString(data);
+        dest.writeString(ddata);
         dest.writeInt(picture);
         dest.writeByte((byte) (like ? 1 : 0));
         dest.writeLong(date.getTime());

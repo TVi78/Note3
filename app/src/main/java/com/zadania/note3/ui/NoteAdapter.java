@@ -15,24 +15,28 @@ import com.zadania.note3.R;
 import com.zadania.note3.data.CardData;
 import com.zadania.note3.data.CardsSource;
 
+import java.text.SimpleDateFormat;
+
 public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
     private final static String TAG = "NoteAdapter";
     private CardsSource dataSource;
-    private Fragment fragment;
+    private final Fragment fragment;
     private OnItemClickListener itemClickListener;  // Слушатель будет устанавливаться извне
     private int menuContextClickPosition;
+    private int menuPosition;
 
     public int getMenuContextClickPosition() {
         return menuContextClickPosition;
     }
 
-    private int menuPosition;
-
     // Передаём в конструктор источник данных
     // В нашем случае это массив, но может быть и запрос к БД
-    public NoteAdapter(CardsSource dataSource, Fragment fragment) {
-        this.dataSource = dataSource;
+    public NoteAdapter(Fragment fragment) {
         this.fragment = fragment;
+    }
+    public void setDataSource(CardsSource dataSource) {
+        this.dataSource = dataSource;
+        notifyDataSetChanged();
     }
 
     // Создать новый элемент пользовательского интерфейса
@@ -138,11 +142,11 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
             title.setText(cardData.getTitle());
             description.setText(cardData.getDescription());
             description2.setText(cardData.getDescription2());
+            data.setText(cardData.getDdata());
             like.setChecked(cardData.isLike());
             image.setImageResource(cardData.getPicture());
-            data.setText(cardData.getData());
-            date.setText(cardData.getDate().toString());
-            //      date.setText(new SimpleDateFormat("dd-MM-yy").format(cardData.getDate()));
+         //   date.setText(cardData.getDate().toString());
+            date.setText(new SimpleDateFormat("dd-MM-yy").format(cardData.getDate()));
         }
     }
 }

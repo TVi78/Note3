@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "410705771194",
+    "project_id": "note3-4161d",
+    "storage_bucket": "note3-4161d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:410705771194:android:c4847daadbcdaf5f066083",
+        "android_client_info": {
+          "package_name": "com.zadania.note3"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "410705771194-g3nv11rn7girc4d7ppe2t08oo17n3q61.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCfsmSkzp2FTytI2gZkYkAZ4GGFNX48peE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "410705771194-g3nv11rn7girc4d7ppe2t08oo17n3q61.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

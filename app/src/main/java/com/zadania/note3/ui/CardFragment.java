@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import com.google.android.material.textfield.TextInputEditText;
 import com.zadania.note3.R;
 import com.zadania.note3.data.CardData;
+import com.zadania.note3.data.PictureIndexConverter;
 import com.zadania.note3.observe.Publisher;
 
 import java.util.Calendar;
@@ -98,23 +99,30 @@ public class CardFragment extends Fragment {
         String description2 = this.description2.getText().toString();
         String data = this.data.getText().toString();
         Date date = getDateFromDatePicker();
-        int picture;
-        boolean like;
+   //     int picture;
+   //     boolean like;
         if (cardData != null) {
-            picture = cardData.getPicture();
-            like = cardData.isLike();
+            CardData answer;
+            answer = new CardData(title, description, description2, data, cardData.getPicture(), cardData.isLike(), date);
+            answer.setId(cardData.getId());
+            return answer;
+   //         cardData.setTitle(title);
+     //       cardData.setDescription(description);
+    //        cardData.setDescription2(description2);
+    //        cardData.setDdata(data);
+     //       cardData.setDate(date);
+    //        return cardData;
         } else {
-            picture = R.drawable.note4;
-            like = false;
+            int picture = PictureIndexConverter.getPictureByIndex(PictureIndexConverter.randomPictureIndex());
+            return new CardData(title, description, description2, data,picture, false,date);
         }
-        return new CardData(title, description, description2, data, picture, like, date);
     }
 
     private void populateView() {
         title.setText(cardData.getTitle());
         description.setText(cardData.getDescription());
         description2.setText(cardData.getDescription2());
-        data.setText(cardData.getData());
+        data.setText(cardData.getDdata());
         initDatePicker(cardData.getDate());
     }
 
