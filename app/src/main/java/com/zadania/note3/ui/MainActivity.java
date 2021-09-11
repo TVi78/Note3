@@ -8,6 +8,7 @@ import androidx.appcompat.widget.Toolbar;
 import com.zadania.note3.R;
 import com.zadania.note3.observe.Publisher;
 
+
 public class MainActivity extends AppCompatActivity {
     private Navigation navigation;
     private Publisher publisher = new Publisher();

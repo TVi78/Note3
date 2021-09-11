@@ -1,7 +1,9 @@
 package com.zadania.note3.ui;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -13,6 +15,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -34,7 +37,6 @@ public class NoteFragment extends Fragment {
     private RecyclerView recyclerView;
     private Navigation navigation;
     private Publisher publisher;
- //   private boolean moveToLastPosition;
     private boolean moveToFirstPosition;
 
     public static NoteFragment newInstance() {
@@ -87,6 +89,7 @@ public class NoteFragment extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
         return onItemSelected(item.getItemId()) || super.onOptionsItemSelected(item);
     }
 
@@ -118,7 +121,7 @@ public class NoteFragment extends Fragment {
         animator.setRemoveDuration(MY_DEFAULT_DURATION);
         recyclerView.setItemAnimator(animator);
 
-        if (moveToFirstPosition && datta.size() > 0){
+        if (moveToFirstPosition && datta.size() > 0) {
             recyclerView.scrollToPosition(0);
             moveToFirstPosition = false;
         }
@@ -138,16 +141,20 @@ public class NoteFragment extends Fragment {
         inflater.inflate(R.menu.card_menu, menu);
     }
 
+    private static final String TAG = "myLogs";
+
     @Override
     public boolean onContextItemSelected(@NonNull MenuItem item) {
+        Log.d(TAG, "context");
         return onItemSelected(item.getItemId()) || super.onContextItemSelected(item);
     }
 
 
-    private boolean onItemSelected(int menuItemId){
-        switch (menuItemId){
+    private boolean onItemSelected(int menuItemId) {
+        switch (menuItemId) {
             case R.id.action_add:
-                navigation.addFragment(CardFragment.newInstance(), true);
+                Log.d("myLogs", "add");
+                navigation.addFragment(NoteUpdateFragment.newInstance(), true);
                 publisher.subscribe(new Observer() {
                     @Override
                     public void updateCardData(CardData cardData) {
@@ -161,7 +168,7 @@ public class NoteFragment extends Fragment {
                 return true;
             case R.id.action_update:
                 final int updatePosition = adapter.getMenuPosition();
-                navigation.addFragment(CardFragment.newInstance(datta.getCardData(updatePosition)), true);
+                navigation.addFragment(NoteUpdateFragment.newInstance(datta.getCardData(updatePosition)), true);
                 publisher.subscribe(new Observer() {
                     @Override
                     public void updateCardData(CardData cardData) {
@@ -171,13 +178,48 @@ public class NoteFragment extends Fragment {
                 });
                 return true;
             case R.id.action_delete:
-                int deletePosition = adapter.getMenuPosition();
-                datta.deleteCardData(deletePosition);
-                adapter.notifyItemRemoved(deletePosition);
+                Log.d(TAG, "del");
+                AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+                builder.setTitle("!")
+                        .setMessage("Удалить данную карточку?")
+                        .setIcon(R.mipmap.ic_launcher)
+                        .setCancelable(false)
+                        .setNeutralButton("Да", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                int deletePosition = adapter.getMenuPosition();
+                                datta.deleteCardData(deletePosition);
+                                adapter.notifyItemRemoved(deletePosition);
+                            }
+                        })
+                        .setNegativeButton("Нет", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        });
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
                 return true;
             case R.id.action_clear:
-                datta.clearCardData();
-                adapter.notifyDataSetChanged();
+                AlertDialog.Builder builder1 = new AlertDialog.Builder(requireContext());
+                builder1.setTitle("!")
+                        .setMessage("Удалить все?")
+                        .setIcon(R.mipmap.ic_launcher)
+                        .setCancelable(false)
+                        .setNeutralButton("Да", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                datta.clearCardData();
+                                adapter.notifyDataSetChanged();
+                            }
+                        })
+                        .setNegativeButton("Нет", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        });
+                AlertDialog alertDialog1 = builder1.create();
+                alertDialog1.show();
                 return true;
         }
         return false;
