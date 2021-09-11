@@ -108,6 +108,7 @@ public class NoteUpdateFragment extends Fragment {
         String description2 = this.description2.getText().toString();
         String data = this.data.getText().toString();
         Date date = getDateFromDatePicker();
+        //
         //     int picture;
         //     boolean like;
         if (cardData != null) {
